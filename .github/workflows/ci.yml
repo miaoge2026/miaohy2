@@ -1,0 +1,77 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # 每周日运行
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, centos-latest, archlinux-latest]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up environment
+      run: |
+        sudo apt update
+        sudo apt install -y curl wget openssl
+    
+    - name: Run syntax check
+      run: |
+        bash -n scripts/喵哥一键hy安装脚本_v2.0.sh
+        bash -n scripts/喵哥一键hy安装脚本.sh
+    
+    - name: Run basic tests
+      run: |
+        chmod +x tests/功能测试脚本.sh
+        ./tests/功能测试脚本.sh
+    
+    - name: Security check
+      run: |
+        # 检查脚本安全性
+        grep -n "eval\|exec\|sudo" scripts/喵哥一键hy安装脚本_v2.0.sh | grep -v "^[0-9]*:.*#"
+        if [ $? -eq 0 ]; then
+          echo "⚠️ 发现潜在安全问题，请检查"
+        fi
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          test_*.log
+          /var/log/hysteria_install.log
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+    
+    - name: Create release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          scripts/喵哥一键hy安装脚本_v2.0.sh
+          scripts/喵哥一键hy安装脚本.sh
+          docs/*.md
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

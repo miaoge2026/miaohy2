@@ -1,0 +1,26 @@
+# Hysteria 2 客户端配置示例
+# 请将此文件重命名为 client_config.yaml 并根据实际情况修改
+
+server: "your-server.com:443"
+
+auth: your_password_here
+
+tls:
+  sni: your-server.com
+  insecure: false
+  # ca: /path/to/ca.cer  # 使用自签名证书时需要
+
+bandwidth:
+  up: 20 mbps
+  down: 100 mbps
+
+socks5:
+  listen: 127.0.0.1:50000
+  timeout: 30s
+
+http:
+  listen: 127.0.0.1:50001
+
+log:
+  level: info
+  format: text

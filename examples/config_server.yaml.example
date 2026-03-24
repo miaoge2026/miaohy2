@@ -1,0 +1,36 @@
+# Hysteria 2 服务器配置示例
+# 请将此文件重命名为 config.yaml 并根据实际情况修改
+
+listen: :443
+
+tls:
+  cert: /root/hysteria/fullchain.cer
+  key: /root/hysteria/private.key
+
+bandwidth:
+  up: 100 mbps
+  down: 20 mbps
+
+auth:
+  type: password
+  password: your_strong_password_here
+
+resolver:
+  type: https
+  https:
+    addr: 1.1.1.1:443
+    timeout: 10s
+
+sniff:
+  enable: true
+  timeout: 2s
+
+acl:
+  inline:
+    - reject(all, udp/443)
+    - allow(any)
+
+log:
+  level: debug
+  format: text
+  file: /root/hysteria/hysteria.log
