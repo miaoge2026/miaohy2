@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# hy2快捷命令使用示例
+
+# 服务管理
+hy2 start     # 启动Hysteria服务
+hy2 stop      # 停止Hysteria服务
+hy2 restart   # 重启Hysteria服务
+hy2 status    # 查看Hysteria服务状态
+
+# 配置管理
+hy2 config    # 编辑服务器配置文件
+hy2 client    # 查看客户端配置信息
+hy2 test      # 测试配置文件是否正确
+
+# 日志管理
+hy2 logs      # 查看实时服务日志
+hy2 logs -n 50  # 查看最近50条日志
+
+# 订阅管理
+hy2 qr        # 生成客户端配置二维码
+hy2 subs      # 查看所有订阅配置
+
+# 维护命令
+hy2 update    # 检查Hysteria更新
+hy2 uninstall # 卸载Hysteria服务
+hy2 help      # 显示帮助信息

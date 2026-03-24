@@ -1,0 +1,49 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# 日志文件
+*.log
+/var/log/hysteria_install.log
+
+# 临时文件
+/tmp/
+*.tmp
+*.temp
+
+# 证书文件
+*.key
+*.cer
+*.crt
+ca.cer
+
+# 配置文件
+/config.yaml
+/client_config.yaml
+hysteria_config.yaml
+
+# 备份文件
+/root/hysteria_backup/
+*.backup
+*.bak
+
+# IDE文件
+.vscode/
+.idea/
+*.sublime-*
+
+# 测试文件
+/tests/test_*.log
+/coverage/
+
+# 依赖文件
+node_modules/
+~/.acme.sh/
+
+# 敏感信息
+.env
+.env.local
+.env.production
+.secrets/

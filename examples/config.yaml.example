@@ -1,0 +1,34 @@
+# Hysteria 2 融合版配置示例
+
+# 服务器配置
+server:
+  port: 443
+  password: auto  # 自动生成强密码
+  bandwidth:
+    up: 100 Mbps
+    down: 20 Mbps
+  dns: 1.1.1.1
+
+# TLS证书配置
+tls:
+  domain: auto  # 自动检测或申请证书
+  # 有域名: 自动申请Let's Encrypt证书
+  # 无域名: 自动生成自签名证书
+
+# 系统优化
+system:
+  optimize: true  # 自动优化内核参数
+  bbr: true      # 启用BBR拥塞控制
+
+# 快捷命令
+shortcut:
+  hy2: true  # 创建hy2快捷命令
+
+# 订阅转换
+subscription:
+  enabled: true  # 生成多种格式订阅
+  formats:
+    - json      # Hysteria原生格式
+    - clash     # Clash/Clash Meta格式
+    - v2ray     # V2Ray兼容格式
+    - qrcode    # 二维码配置
